@@ -13,7 +13,9 @@ def register_view(request):
 
         if form.is_valid():
             user = form.save(commit=False)
-            user.username = form.cleaned_data["username"].strip()
+            user.full_name = form.cleaned_data.get('full_name')
+            user.set_password(form.cleaned_data['password'])
+           
             user.save()  
 
             login(request, user)  
